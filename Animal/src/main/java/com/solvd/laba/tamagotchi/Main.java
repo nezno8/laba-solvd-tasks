@@ -14,6 +14,7 @@ public class Main {
         animals.add(new Parrot("Koko", "African Red Parrot", "Red"));
         animals.add(new Rabbit("Bunny", "Holland Lop", "Grey"));
 
+        // Polymorphism issue#11 https://github.com/users/nezno8/projects/1/views/1
         System.out.println("Does this animal eat meat?");
         for (Pet pet : animals) {
             System.out.println(pet.getName()

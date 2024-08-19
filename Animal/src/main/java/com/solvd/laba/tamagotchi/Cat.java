@@ -28,6 +28,7 @@ public class Cat extends Pet {
         System.out.println(name + ": - Meow! I love my owner! I'm so glad to see you again!");
     }
 
+    // Polymorphism issue#11 https://github.com/users/nezno8/projects/1/views/1
     @Override
     public void tick() {
         hungerLevel += 2;
@@ -49,6 +50,7 @@ public class Cat extends Pet {
         this.color = color;
     }
 
+    // Polymorphism issue#11 https://github.com/users/nezno8/projects/1/views/1
     @Override
     public boolean likesFood(Food food) {
         return food == Food.FISH || food == Food.MILK;
