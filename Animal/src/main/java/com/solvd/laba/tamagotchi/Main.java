@@ -16,7 +16,11 @@ public class Main {
 
         System.out.println("Does this animal eat meat?");
         for (Pet pet : animals) {
-            System.out.println(doesAnimalLikeMeet(pet));
+            System.out.println(pet.getName() + " is a "
+                    + pet.getClass().getSimpleName()
+                    + " and "
+                    + pet.getClass().getSimpleName() + "s"
+                    + (doesAnimalLikeMeet(pet)? " eat meet.": " do not eat meet."));
         }
 
         PetOwner owner = new PetOwner("Alice");
