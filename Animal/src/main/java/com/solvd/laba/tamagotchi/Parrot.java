@@ -30,7 +30,7 @@ public class Parrot extends Pet {
 
     @Override
     public void tick() {
-        hungerLevel+= 3;
+        hungerLevel += 3;
     }
 
     public String getBreed() {

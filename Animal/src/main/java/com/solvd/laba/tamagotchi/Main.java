@@ -3,7 +3,7 @@ package com.solvd.laba.tamagotchi;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.laba.tamagotchi.Pet.*;
+import static com.solvd.laba.tamagotchi.Pet.doesAnimalLikeMeet;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,11 +16,10 @@ public class Main {
 
         System.out.println("Does this animal eat meat?");
         for (Pet pet : animals) {
-            System.out.println(pet.getName() + " is a "
-                    + pet.getClass().getSimpleName()
-                    + " and "
-                    + pet.getClass().getSimpleName() + "s"
-                    + (doesAnimalLikeMeet(pet)? " eat meet.": " do not eat meet."));
+            System.out.println(pet.getName()
+                    + " is a " + pet.getClass().getSimpleName()
+                    + " and " + pet.getClass().getSimpleName()
+                    + "s" + (doesAnimalLikeMeet(pet) ? " eat meet." : " do not eat meet."));
         }
 
         PetOwner owner = new PetOwner("Alice");

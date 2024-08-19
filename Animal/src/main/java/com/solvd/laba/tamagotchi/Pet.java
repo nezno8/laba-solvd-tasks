@@ -9,6 +9,10 @@ public abstract class Pet {
         this.hungerLevel = 0;
     }
 
+    public static boolean doesAnimalLikeMeet(Pet pet) {
+        return pet.likesFood(Food.MEAT);
+    }
+
     public abstract void greetOwner(boolean isPetKnowOwner);
 
     public abstract void tick();
@@ -17,14 +21,14 @@ public abstract class Pet {
         return hungerLevel;
     }
 
+    public void setHungerLevel(int hungerLevel) {
+        this.hungerLevel = hungerLevel;
+    }
+
     public void eat(Food food) {
         if (likesFood(food)) {
             hungerLevel = Math.max(0, hungerLevel - food.getSatisfactionLevel());
         }
-    }
-
-    public void setHungerLevel(int hungerLevel) {
-        this.hungerLevel = hungerLevel;
     }
 
     public String getName() {
@@ -38,9 +42,5 @@ public abstract class Pet {
     public abstract boolean likesFood(Food food);
 
     public abstract String getFavoriteFood();
-
-    public static boolean doesAnimalLikeMeet(Pet pet) {
-        return pet.likesFood(Food.MEAT);
-    }
 }
 
