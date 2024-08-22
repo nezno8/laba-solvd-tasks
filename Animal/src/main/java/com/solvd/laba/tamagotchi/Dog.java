@@ -3,13 +3,9 @@ package com.solvd.laba.tamagotchi;
 import java.util.Scanner;
 
 public class Dog extends Pet {
-    private String breed;
-    private String color;
 
     public Dog(String name, String breed, String color) {
-        super(name);
-        this.breed = breed;
-        this.color = color;
+        super(name, breed, color);
     }
 
     @Override
@@ -24,29 +20,15 @@ public class Dog extends Pet {
             setName(newName);
 
             System.out.println(newName + "! What a fantastic dog name!!! It's wonderful!");
+        } else {
+            System.out.println(name + ": - Woof! I love my owner!  I'm so happy to see you again!");
         }
-        System.out.println("Woof! My name is " + getName() + "! I'm so happy to see you again!");
     }
 
     @Override
     public void tick() {
         hungerLevel++;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+        calculateHealthLevel();
     }
 
     @Override
@@ -57,5 +39,18 @@ public class Dog extends Pet {
     @Override
     public String getFavoriteFood() {
         return "meat, treats";
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", color='" + color + '\'' +
+                ", hungerLevel=" + hungerLevel +
+                ", healthLevel=" + healthLevel +
+                ", isActive=" + isActive +
+                ", isSick=" + isSick +
+                '}';
     }
 }

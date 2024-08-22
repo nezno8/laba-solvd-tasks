@@ -2,5 +2,5 @@ package com.solvd.laba.tamagotchi;
 
 @FunctionalInterface
 public interface ChoosePet {
-    void choose(Pet pet);
+    void choose(String name);
 }

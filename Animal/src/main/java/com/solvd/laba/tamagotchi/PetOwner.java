@@ -16,33 +16,35 @@ public class PetOwner implements AdoptPet, ChoosePet {
 
     @Override
     public void adopt(Pet pet) {
-        for (Pet existingPet : pets) {
-            if (existingPet.getClass() == pet.getClass() && existingPet.getName().equals(pet.getName())) {
-                System.out.println(username + " already has a " + pet.getClass().getSimpleName() + " named " + existingPet.getName() + ".");
-                pet.greetOwner(true);
-                return;
+        if (pets.contains(pet)) {
+            System.out.println(username + " already has a " + pet.getClass().getSimpleName() + " named " + pet.getName() + ".");
+            pet.greetOwner(true);
+            return;
+        } else {
+                pets.add(pet);
+                System.out.println(username + " adopted a new pet: " + pet.getName());
+                pet.greetOwner(false);
             }
-        }
-        pets.add(pet);
-        System.out.println(username + " adopted a new pet: " + pet.getName());
-        pet.greetOwner(false);
     }
 
     @Override
-    public void choose(Pet pet) {
-        if (pets.contains(pet)) {
-            selectedPet = pet;
-            System.out.println(username + " selected " + pet.getName() + " as their pet.");
-            pet.greetOwner(true);
-        } else {
-            System.out.println(username + " doesn't own this pet.");
+    public void choose(String petName) {
+        for (Pet existingPet : pets) {
+            if (existingPet.getName().equalsIgnoreCase(petName)) {
+                selectedPet = existingPet;
+                System.out.println(username + " selected " + existingPet.getName() + " as their pet.");
+                existingPet.greetOwner(true);
+                return;
+            } else {
+                System.out.println(username + " doesn't own a pet named " + petName + ".");
+            }
         }
     }
 
     public void feedSelectedPet(Food food) {
         if (selectedPet != null) {
+            System.out.println("\n" + username + " feeds own pet with " + food.name() + ".");
             selectedPet.eat(food);
-            System.out.println(username + " fed " + selectedPet.getName() + " with " + food);
         } else {
             System.out.println(username + " doesn't have a selected pet to feed.");
         }

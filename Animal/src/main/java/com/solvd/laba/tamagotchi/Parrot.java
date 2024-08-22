@@ -3,18 +3,14 @@ package com.solvd.laba.tamagotchi;
 import java.util.Scanner;
 
 public class Parrot extends Pet {
-    private String breed;
-    private String color;
 
     public Parrot(String name, String breed, String color) {
-        super(name);
-        this.breed = breed;
-        this.color = color;
+        super(name, breed, color);
     }
 
     @Override
     public void greetOwner(boolean isPetKnowOwner) {
-        if (isPetKnowOwner) {
+        if (!isPetKnowOwner) {
             System.out.println("Squawk! I'm thrilled to be your pet!");
             System.out.println("I love to eat: " + getFavoriteFood());
             System.out.print("What will you name me? ");
@@ -24,29 +20,15 @@ public class Parrot extends Pet {
             setName(newName);
 
             System.out.println(newName + "! What a colorful parrot name!!! It's amazing!");
+        } else {
+            System.out.println(name + ": - Squawk! I love my owner! It's great to see you again!");
         }
-        System.out.println("Squawk! My name is " + getName() + "! It's great to see you again!");
     }
 
     @Override
     public void tick() {
         hungerLevel += 3;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+        calculateHealthLevel();
     }
 
     @Override

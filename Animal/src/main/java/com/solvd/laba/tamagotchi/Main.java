@@ -7,14 +7,38 @@ import static com.solvd.laba.tamagotchi.Pet.doesAnimalLikeMeet;
 
 public class Main {
     public static void main(String[] args) {
+        PetManager petManager = new PetManager();
+
+        System.out.printf("%-20S%n", "_".repeat(10) + "Created_Owners:" + "_".repeat(10));
+        petManager.addOwner("John");
+        petManager.addOwner("Alice");
+        System.out.printf("%-20s%n","_".repeat(35));
+
+        System.out.printf("%-20S%n", "_".repeat(10) + "Adopting_Pet:" + "_".repeat(10));
+        PetOwner john = petManager.getOwner("John");
+        john.adopt(new Cat("Sunny", "Siamese", "brown"));
+        System.out.println("\n");
+        john.adopt(new Dog("Buddy", "Labrador", "black"));
+        System.out.printf("%-20s%n","_".repeat(35));
+
+        System.out.printf("%-20S%n", "_".repeat(10) + "Choose_Pet:" + "_".repeat(10));
+        petManager.choosePetForOwner("John", "Sunny");
+        //TODO: Printing 2times --> need refactor this method
+        System.out.println("\n");
+        petManager.choosePetForOwner("John", "Sunny");
+        System.out.printf("%-20s%n","_".repeat(35));
+
+        System.out.printf("%-20S%n", "_".repeat(10) + "All_Pets_and_Owners:" + "_".repeat(10));
+        petManager.printAllOwners();
+        System.out.printf("%-20s%n","_".repeat(35));
 
         List<Pet> animals = new ArrayList<>();
         animals.add(new Dog("Azor", "Labrador", "Black"));
-        animals.add(new Cat("Sunny", "Siamese", "White"));
+        animals.add(new Cat("Sara", "Siamese", "White"));
         animals.add(new Parrot("Koko", "African Red Parrot", "Red"));
         animals.add(new Rabbit("Bunny", "Holland Lop", "Grey"));
 
-        // Polymorphism issue#11 https://github.com/users/nezno8/projects/1/views/1
+        System.out.printf("%-20s%n","_".repeat(35));
         System.out.println("Does this animal eat meat?");
         for (Pet pet : animals) {
             System.out.println(pet.getName()
@@ -22,69 +46,56 @@ public class Main {
                     + " and " + pet.getClass().getSimpleName()
                     + "s" + (doesAnimalLikeMeet(pet) ? " eat meet." : " do not eat meet."));
         }
-
-        PetOwner owner = new PetOwner("Alice");
+        System.out.printf("%-20s%n","_".repeat(35));
+        System.out.println("\n");
 
         //TODO: Change the pet adoption and selection mechanism:
         // - by adding a second constructor for Pet without a name or see a separate Animal or PetShop class,
         // - split the Owner greeting mechanism
+        // - refactor connection between PetOwner and PetManager --> maybe pattern Factory or Builder
+        // - builder for create pet
 
-        System.out.println("\n" + owner.getUsername() + " want adopting a pet:");
-        owner.adopt(animals.get(0));
 
-        System.out.println("\n" + owner.getUsername() + " want adopting a pet:");
-        owner.adopt(animals.get(1));
+        System.out.printf("%-20s%n","_".repeat(35));
+        System.out.println("\nAnimal hunger levels and health levels before time passage:");
+        for (Pet pet : animals) {
+            System.out.println(pet.getName() + ": Hunger Level = " + pet.getHungerLevel() + ", Health Level = " + pet.getHealthLevel());
+        }
 
-        System.out.println("\n" + owner.getUsername() + " choose pet:");
-        owner.choose(animals.get(0));
-        owner.feedSelectedPet(Food.FISH);
-        owner.playWithSelectedPet();
-        owner.takeSelectedPetToVet();
+        for (Pet pet : animals) {
+            pet.tick();
+            pet.calculateHealthLevel();
+        }
 
-        System.out.println("\n" + owner.getUsername() + " choose pet:");
-        owner.choose(animals.get(1));
-        owner.feedSelectedPet(Food.MEAT);
-        owner.playWithSelectedPet();
-        owner.takeSelectedPetToVet();
+        System.out.println("\nAnimal hunger levels and health levels after time passage:");
+        for (Pet pet : animals) {
+            System.out.println(pet.getName() + ": Hunger Level = " + pet.getHungerLevel() + ", Health Level = " + pet.getHealthLevel());
+        }
 
-        System.out.println("\nAnimal hunger levels before time passage:");
-        System.out.println("Dog: " + animals.get(0).getHungerLevel());
-        System.out.println("Cat: " + animals.get(1).getHungerLevel());
-        System.out.println("Parrot: " + animals.get(2).getHungerLevel());
-        System.out.println("Rabbit: " + animals.get(3).getHungerLevel());
+        System.out.println("\nFeeding animals...");
 
-        animals.get(0).tick();
-        animals.get(1).tick();
-        animals.get(2).tick();
-        animals.get(3).tick();
+        petManager.choosePetForOwner("John", "Buddy");
 
-        System.out.println("\nAnimal hunger levels after time passage:");
-        System.out.println("Dog: " + animals.get(0).getHungerLevel());
-        System.out.println("Cat: " + animals.get(1).getHungerLevel());
-        System.out.println("Parrot: " + animals.get(2).getHungerLevel());
-        System.out.println("Rabbit: " + animals.get(3).getHungerLevel());
 
-        animals.get(0).eat(Food.CRISPS);
-        animals.get(1).eat(Food.FISH);
-        animals.get(2).eat(Food.FRUIT);
-        animals.get(3).eat(Food.VEGETABLES);
+        System.out.println("\n" + john.getUsername() + " want choose a pet:");
+        john.choose("Sunny");
+        john.feedSelectedPet(Food.FISH);
 
-        System.out.println("\nAnimal hunger levels after feeding in the morning: ");
-        System.out.println("Dog: " + animals.get(0).getHungerLevel());
-        System.out.println("Cat: " + animals.get(1).getHungerLevel());
-        System.out.println("Parrot: " + animals.get(2).getHungerLevel());
-        System.out.println("Rabbit: " + animals.get(3).getHungerLevel());
+        System.out.println("\nAnimal hunger levels and health levels after feeding:");
+        for (Pet pet : animals) {
+            System.out.println(pet.getName() + ": Hunger Level = " + pet.getHungerLevel() + ", Health Level = " + pet.getHealthLevel() + ", Is Sick: " + pet.isSick());
+        }
 
-        animals.get(0).eat(Food.CRISPS);
-        animals.get(1).eat(Food.FISH);
-        animals.get(2).eat(Food.FRUIT);
-        animals.get(3).eat(Food.VEGETABLES);
+        System.out.println("\nPlaying with pets...");
+        john.choose("Sunny");
+        john.playWithSelectedPet();
+        john.choose("Buddy");
+        john.playWithSelectedPet();
 
-        System.out.println("\nAnimal hunger levels after evening feeding");
-        System.out.println("Dog: " + animals.get(0).getHungerLevel());
-        System.out.println("Cat: " + animals.get(1).getHungerLevel());
-        System.out.println("Parrot: " + animals.get(2).getHungerLevel());
-        System.out.println("Rabbit: " + animals.get(3).getHungerLevel());
+        System.out.println("\nAnimal hunger levels and health levels after playing:");
+        for (Pet pet : animals) {
+            System.out.println(pet.getName() + ": Hunger Level = " + pet.getHungerLevel() + ", Health Level = " + pet.getHealthLevel() + ", Is Sick: " + pet.isSick());
+        }
     }
 }
 
