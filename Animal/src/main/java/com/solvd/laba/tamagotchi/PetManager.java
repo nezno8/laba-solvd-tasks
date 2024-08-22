@@ -60,4 +60,11 @@ public class PetManager {
     public int hashCode() {
         return Objects.hash(petOwners);
     }
+
+    @Override
+    public String toString() {
+        return "PetManager{" +
+                "petOwners=" + petOwners +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.solvd.laba.tamagotchi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PetOwner implements AdoptPet, ChoosePet {
     private String username;
@@ -76,5 +77,27 @@ public class PetOwner implements AdoptPet, ChoosePet {
 
     public Pet getSelectedPet() {
         return selectedPet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PetOwner)) return false;
+        PetOwner petOwner = (PetOwner) o;
+        return Objects.equals(username, petOwner.username) && Objects.equals(pets, petOwner.pets) && Objects.equals(selectedPet, petOwner.selectedPet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, pets, selectedPet);
+    }
+
+    @Override
+    public String toString() {
+        return "PetOwner{" +
+                "username='" + username + '\'' +
+                ", pets=" + pets +
+                ", selectedPet=" + selectedPet +
+                '}';
     }
 }

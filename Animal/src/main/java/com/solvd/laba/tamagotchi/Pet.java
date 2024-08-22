@@ -1,5 +1,7 @@
 package com.solvd.laba.tamagotchi;
 
+import java.util.Objects;
+
 public abstract class Pet {
 
     protected String name;
@@ -125,6 +127,32 @@ public abstract class Pet {
 
     public void setSick(boolean sick) {
         isSick = sick;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pet)) return false;
+        Pet pet = (Pet) o;
+        return hungerLevel == pet.hungerLevel && healthLevel == pet.healthLevel && isActive == pet.isActive && isSick == pet.isSick && Objects.equals(name, pet.name) && Objects.equals(breed, pet.breed) && Objects.equals(color, pet.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, breed, color, hungerLevel, healthLevel, isActive, isSick);
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", color='" + color + '\'' +
+                ", hungerLevel=" + hungerLevel +
+                ", healthLevel=" + healthLevel +
+                ", isActive=" + isActive +
+                ", isSick=" + isSick +
+                '}';
     }
 }
 

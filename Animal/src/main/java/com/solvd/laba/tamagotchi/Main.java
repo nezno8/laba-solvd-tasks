@@ -7,11 +7,19 @@ import static com.solvd.laba.tamagotchi.Pet.doesAnimalLikeMeet;
 
 public class Main {
     public static void main(String[] args) {
+
         PetManager petManager = new PetManager();
+        System.out.println(new Cat("Sunny", "Siamese", "Brown"));
+        System.out.println(new Dog("Azor", "Labrador", "Black"));
+        System.out.println(new Parrot("Koko", "African Red Parrot", "Red"));
+        System.out.println(new Rabbit("Bunny", "Holland Lop", "Grey"));
+
 
         System.out.printf("%-20S%n", "_".repeat(10) + "Created_Owners:" + "_".repeat(10));
         petManager.addOwner("John");
         petManager.addOwner("Alice");
+        System.out.println("\n ____All_information_in_manager:______");
+        System.out.println(petManager);
         System.out.printf("%-20s%n","_".repeat(35));
 
         System.out.printf("%-20S%n", "_".repeat(10) + "Adopting_Pet:" + "_".repeat(10));
