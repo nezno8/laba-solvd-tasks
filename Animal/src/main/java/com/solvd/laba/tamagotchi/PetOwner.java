@@ -81,6 +81,7 @@ public class PetOwner implements AdoptPet, ChoosePet {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("equals()");
         if (this == o) return true;
         if (!(o instanceof PetOwner)) return false;
         PetOwner petOwner = (PetOwner) o;
@@ -89,15 +90,13 @@ public class PetOwner implements AdoptPet, ChoosePet {
 
     @Override
     public int hashCode() {
+        System.out.println("hashCode()");
         return Objects.hash(username, pets, selectedPet);
     }
 
     @Override
     public String toString() {
-        return "PetOwner{" +
-                "username='" + username + '\'' +
-                ", pets=" + pets +
-                ", selectedPet=" + selectedPet +
-                '}';
+        return "Pet owner " + username +
+                " have pets: " + pets;
     }
 }

@@ -40,12 +40,23 @@ public class PetManager {
         }
     }
 
-    public void printAllOwners() {
+    public StringBuilder printAllOwners() {
+        StringBuilder result = new StringBuilder("\n");
         for (Map.Entry<String, PetOwner> entry : petOwners.entrySet()) {
             String username = entry.getKey();
             PetOwner owner = entry.getValue();
-            System.out.println("Username: " + username + ", Pets: " + owner.getPets());
+            result.append("Username: ").append(username).append(" --> Pets:");
+            if (owner.getPets().isEmpty()) {
+                result.append(" []");
+        }  else {
+                for (Pet pet : owner.getPets()) {
+                    result.append(" \n| ").append(pet.toString()).append(" | ");
+                }
+            }
+            result.append("\n");
         }
+
+        return result;
     }
 
     @Override
@@ -63,8 +74,11 @@ public class PetManager {
 
     @Override
     public String toString() {
-        return "PetManager{" +
-                "petOwners=" + petOwners +
-                '}';
+        return "System Manager have got information about " + getOwnerCount() + " pet owners:"
+                + this.printAllOwners();
+    }
+
+    private Integer getOwnerCount() {
+        return petOwners != null ? petOwners.size() : 0;
     }
 }

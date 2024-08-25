@@ -8,26 +8,41 @@ import static com.solvd.laba.tamagotchi.Pet.doesAnimalLikeMeet;
 public class Main {
     public static void main(String[] args) {
 
-        PetManager petManager = new PetManager();
-        System.out.println(new Cat("Sunny", "Siamese", "Brown"));
-        System.out.println(new Dog("Azor", "Labrador", "Black"));
-        System.out.println(new Parrot("Koko", "African Red Parrot", "Red"));
-        System.out.println(new Rabbit("Bunny", "Holland Lop", "Grey"));
+        System.out.println("____________________________________________________________________");
+        Pet petDog = new Dog("Buddy", "Labrador", "brown");
+        Pet petDogPuppy = new Dog("Buddy", "Labrador", "brown");
 
+        System.out.println("petDog.equals(petDogPuppy): " + petDog.equals(petDogPuppy));
+        System.out.println("petDog.hashCode(): " + petDog.hashCode());
+        System.out.println("petDogPuppy.hashCode(): " + petDogPuppy.hashCode());
+        System.out.println("____________________________________________________________________");
+
+        PetManager petManager = new PetManager();
+        System.out.println(petManager);
+        System.out.println(new PetOwner("Jii"));
 
         System.out.printf("%-20S%n", "_".repeat(10) + "Created_Owners:" + "_".repeat(10));
+
         petManager.addOwner("John");
+        PetOwner john = petManager.getOwner("John");
+
         petManager.addOwner("Alice");
-        System.out.println("\n ____All_information_in_manager:______");
+        PetOwner alice = petManager.getOwner("Alice");
+
+        System.out.println(petManager);
+
+        System.out.printf("%-20S%n", "_".repeat(10) + "All_information_in_manager:" + "_".repeat(10));
         System.out.println(petManager);
         System.out.printf("%-20s%n","_".repeat(35));
 
         System.out.printf("%-20S%n", "_".repeat(10) + "Adopting_Pet:" + "_".repeat(10));
-        PetOwner john = petManager.getOwner("John");
+        petManager.getOwner("John");
         john.adopt(new Cat("Sunny", "Siamese", "brown"));
         System.out.println("\n");
         john.adopt(new Dog("Buddy", "Labrador", "black"));
         System.out.printf("%-20s%n","_".repeat(35));
+
+        System.out.println(petManager);
 
         System.out.printf("%-20S%n", "_".repeat(10) + "Choose_Pet:" + "_".repeat(10));
         petManager.choosePetForOwner("John", "Sunny");
@@ -56,6 +71,11 @@ public class Main {
         }
         System.out.printf("%-20s%n","_".repeat(35));
         System.out.println("\n");
+
+        System.out.println(new Cat("Sunny", "Siamese", "Brown").toStringDetailed());
+        System.out.println(new Dog("Azor", "Labrador", "Black"));
+        System.out.println(new Parrot("Koko", "African Red Parrot", "Red").toStringDetailed());
+        System.out.println(new Rabbit("Bunny", "Holland Lop", "Grey"));
 
         //TODO: Change the pet adoption and selection mechanism:
         // - by adding a second constructor for Pet without a name or see a separate Animal or PetShop class,
