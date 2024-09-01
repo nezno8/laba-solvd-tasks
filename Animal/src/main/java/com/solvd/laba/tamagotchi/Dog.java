@@ -1,6 +1,5 @@
 package com.solvd.laba.tamagotchi;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Dog extends Pet {

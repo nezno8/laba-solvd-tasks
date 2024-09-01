@@ -1,7 +1,6 @@
 package com.solvd.laba.tamagotchi;
 
 import java.util.Objects;
-import java.util.regex.PatternSyntaxException;
 
 public abstract class Pet {
 
@@ -134,16 +133,15 @@ public abstract class Pet {
 
     @Override
     public boolean equals(Object o) {
-        System.out.println("equals()");
         if (this == o) return true;
-        if (!(o instanceof Pet)) return false;
-        Pet pet = (Pet) o;
-        return hungerLevel == pet.hungerLevel && healthLevel == pet.healthLevel && isActive == pet.isActive && isSick == pet.isSick && Objects.equals(name, pet.name) && Objects.equals(breed, pet.breed) && Objects.equals(color, pet.color);
+        if (!(o instanceof Pet pet)) return false;
+        boolean areEqual = hungerLevel == pet.hungerLevel && healthLevel == pet.healthLevel && isActive == pet.isActive && isSick == pet.isSick && Objects.equals(name, pet.name) && Objects.equals(breed, pet.breed) && Objects.equals(color, pet.color);
+        System.out.println("Pet " + this.name + ": hashCode " + this.hashCode() + " and object Pet " + ((Pet) o).name + ": hashCode " + ((Pet) o).hashCode() + " equality result: " + areEqual);
+        return areEqual;
     }
 
     @Override
     public int hashCode() {
-        System.out.println("hashCode");
         return Objects.hash(name, breed, color, hungerLevel, healthLevel, isActive, isSick);
     }
 
@@ -159,7 +157,7 @@ public abstract class Pet {
                 + " color, which makes me really special! \n"
                 + "Sometimes I feel hungry, how about YOU? \n"
                 + "My hunger level right now is: " + hungerLevel + "\n"
-                + "When it's time for a tasty snack, I dream about: " + this.getFavoriteFood() +  ".\n"
+                + "When it's time for a tasty snack, I dream about: " + this.getFavoriteFood() + ".\n"
                 + "I long for an owner who will take care of my health and won't feed me products that make me sick. \n"
                 + "So please remember what I enjoy eating: " + this.getFavoriteFood() + ".\n"
                 + "Take care of mine health too, because I can lose it if I eat poorly or lead a sedentary lifestyle! \n"

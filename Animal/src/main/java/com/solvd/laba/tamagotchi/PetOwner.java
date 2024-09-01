@@ -1,17 +1,18 @@
 package com.solvd.laba.tamagotchi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class PetOwner implements AdoptPet, ChoosePet {
+
     private String username;
-    private List<Pet> pets;
+    private Set<Pet> pets;
     private Pet selectedPet;
 
     public PetOwner(String username) {
         this.username = username;
-        this.pets = new ArrayList<>();
+        this.pets = new HashSet<>();
         this.selectedPet = null;
     }
 
@@ -20,12 +21,11 @@ public class PetOwner implements AdoptPet, ChoosePet {
         if (pets.contains(pet)) {
             System.out.println(username + " already has a " + pet.getClass().getSimpleName() + " named " + pet.getName() + ".");
             pet.greetOwner(true);
-            return;
         } else {
-                pets.add(pet);
-                System.out.println(username + " adopted a new pet: " + pet.getName());
-                pet.greetOwner(false);
-            }
+            pets.add(pet);
+            System.out.println(username + " adopted a new pet: " + pet.getName());
+            pet.greetOwner(false);
+        }
     }
 
     @Override
@@ -71,27 +71,38 @@ public class PetOwner implements AdoptPet, ChoosePet {
         return username;
     }
 
-    public List<Pet> getPets() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<Pet> getPets() {
         return pets;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
 
     public Pet getSelectedPet() {
         return selectedPet;
     }
 
+    public void setSelectedPet(Pet selectedPet) {
+        this.selectedPet = selectedPet;
+    }
+
     @Override
     public boolean equals(Object o) {
-        System.out.println("equals()");
         if (this == o) return true;
-        if (!(o instanceof PetOwner)) return false;
-        PetOwner petOwner = (PetOwner) o;
-        return Objects.equals(username, petOwner.username) && Objects.equals(pets, petOwner.pets) && Objects.equals(selectedPet, petOwner.selectedPet);
+        if (!(o instanceof PetOwner petOwner)) return false;
+        boolean areEqual = Objects.equals(username, petOwner.username);
+        System.out.println("PetOwner " + this.getUsername() + ": hashCode " + this.hashCode() + " and object PetOwner " + ((PetOwner) o).getUsername() + ": hashCode " + ((PetOwner) o).hashCode() + " equality result: " + areEqual);
+        return areEqual;
     }
 
     @Override
     public int hashCode() {
-        System.out.println("hashCode()");
-        return Objects.hash(username, pets, selectedPet);
+        return Objects.hash(username);
     }
 
     @Override

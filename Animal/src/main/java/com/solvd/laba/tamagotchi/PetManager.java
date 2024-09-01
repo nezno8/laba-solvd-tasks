@@ -3,27 +3,61 @@ package com.solvd.laba.tamagotchi;
 import java.util.*;
 
 public class PetManager {
-    private Map<String, PetOwner> petOwners;
+    private Map<PetOwner, Set<Pet>> petOwners;
 
     public PetManager() {
         petOwners = new HashMap<>();
     }
 
     public void addOwner(String username) {
-        if (!petOwners.containsKey(username)) {
-            petOwners.put(username, new PetOwner(username));
-            System.out.println("Added new pet owner: " + username);
-        } else {
+        PetOwner newOwner = new PetOwner(username);
+        if (petOwners.containsKey(newOwner)) {
             System.out.println("Username " + username + " already exists.");
+        } else {
+            Set<Pet> initPets = new HashSet<>();
+            petOwners.put(newOwner, initPets);
+            System.out.println("Added new pet owner: " + username);
         }
+
+//        if (!petOwners.containsKey(username)) {
+//            petOwners.put(username, new PetOwner(username));
+//            System.out.println("Added new pet owner: " + username);
+//        } else {
+//            for (PetOwner owner : petOwners.values()) {
+//                if (owner.getUsername().equalsIgnoreCase(username)) {
+//                    System.out.println("Username " + username + " already exists.");
+//                }
+//            }
+//            System.err.println("addOwner - can not found user and method do not add this user");
+//        }
     }
 
     public PetOwner getOwner(String username) {
-        return petOwners.get(username);
+        for (PetOwner owner : petOwners.keySet()) {
+            if (owner.getUsername().equalsIgnoreCase(username)) {
+                return owner;
+            }
+        }
+        return null;
+    }
+
+    public void adoptPetForOwner(PetOwner owner, Pet pet) {
+        if (petOwners.containsKey(owner)) {
+            Set<Pet> pets = petOwners.get(owner);
+            if (pets.contains(pet)) {
+                System.out.println(owner.getUsername() + " already has a " + pet.getClass().getSimpleName() + " named " + pet.getName() + ".");
+                pet.greetOwner(true);
+            } else {
+                pets.add(pet);
+                owner.adopt(pet);
+            }
+        } else {
+            System.out.println("No owner found with the username: " + owner.getUsername());
+        }
     }
 
     public void choosePetForOwner(String username, String petName) {
-        PetOwner owner = petOwners.get(username);
+        PetOwner owner = getOwner(username);
         if (owner != null) {
             owner.choose(petName);
         } else {
@@ -31,8 +65,9 @@ public class PetManager {
         }
     }
 
+
     public void choosePetOwner(String username) {
-        PetOwner owner = petOwners.get(username);
+        PetOwner owner = getOwner(username);
         if (owner != null) {
             System.out.println("Selected pet owner: " + username);
         } else {
@@ -42,14 +77,14 @@ public class PetManager {
 
     public StringBuilder printAllOwners() {
         StringBuilder result = new StringBuilder("\n");
-        for (Map.Entry<String, PetOwner> entry : petOwners.entrySet()) {
-            String username = entry.getKey();
-            PetOwner owner = entry.getValue();
-            result.append("Username: ").append(username).append(" --> Pets:");
-            if (owner.getPets().isEmpty()) {
+        for (Map.Entry<PetOwner, Set<Pet>> entry : petOwners.entrySet()) {
+            PetOwner owner = entry.getKey();
+            result.append("Username: ").append(owner.getUsername()).append(" --> Pets:");
+            Set<Pet> pets = entry.getValue();
+            if (pets.isEmpty()) {
                 result.append(" []");
-        }  else {
-                for (Pet pet : owner.getPets()) {
+            } else {
+                for (Pet pet : pets) {
                     result.append(" \n| ").append(pet.toString()).append(" | ");
                 }
             }
@@ -62,9 +97,10 @@ public class PetManager {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PetManager)) return false;
-        PetManager that = (PetManager) o;
-        return Objects.equals(petOwners, that.petOwners);
+        if (!(o instanceof PetManager that)) return false;
+        boolean areEqual = Objects.equals(petOwners, that.petOwners);
+        System.out.println("First PetManager which containing " + this.getOwnerCount() + " owners: hashCode " + this.hashCode() + " and second object PetManager which containing " + ((PetManager) o).getOwnerCount() + " owners: hashCode " + ((PetManager) o).hashCode() + " have equality result: " + areEqual);
+        return areEqual;
     }
 
     @Override
@@ -80,5 +116,13 @@ public class PetManager {
 
     private Integer getOwnerCount() {
         return petOwners != null ? petOwners.size() : 0;
+    }
+
+    public Map<PetOwner, Set<Pet>> getPetOwners() {
+        return petOwners;
+    }
+
+    public void setPetOwners(Map<PetOwner, Set<Pet>> petOwners) {
+        this.petOwners = petOwners;
     }
 }
