@@ -86,6 +86,35 @@ public class Main {
         System.out.println("Pet manager : " + manager);
         System.out.println("---------------------------------------------------------------------------");
 
+
+        System.out.println("---------------------------------------------------------------------------");
+
+        IPlayWithPet<Cat> playWithMyPet = (myPet) -> {
+            System.out.println(myPet.getName() + " is playing happily!");
+            myPet.setActive(true);
+        };
+
+        Cat myCat = new Cat("Whiskers", "Siamese", "cream");
+        playWithMyPet.play(myCat);
+
+        ITeachTrick<Cat> teachTrickToMyPet = (myPet, trick) -> {
+            System.out.println(myPet.getName() + " has learned to " + trick + "!");
+            System.out.println(myPet.getName() + " performs the trick perfectly!");
+        };
+
+        teachTrickToMyPet.teachTrick(myCat, "roll over");
+
+        IFeedPet<Cat> feedMyPet = (myPet, food) -> {
+            myPet.eat(food);
+            System.out.println(myPet.getName() + " has been fed " + food + "!");
+            System.out.println("Hunger level: " + myPet.getHungerLevel());
+        };
+
+        feedMyPet.feed(myCat, Food.FISH);
+
+        System.out.println("---------------------------------------------------------------------------");
+
+
     }
 }
 
