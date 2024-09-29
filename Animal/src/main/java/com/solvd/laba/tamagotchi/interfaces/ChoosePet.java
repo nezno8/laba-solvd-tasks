@@ -1,4 +1,4 @@
-package com.solvd.laba.tamagotchi;
+package com.solvd.laba.tamagotchi.interfaces;
 
 @FunctionalInterface
 public interface ChoosePet {

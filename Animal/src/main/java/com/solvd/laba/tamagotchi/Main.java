@@ -1,5 +1,9 @@
 package com.solvd.laba.tamagotchi;
 
+import com.solvd.laba.tamagotchi.interfaces.IFeedPet;
+import com.solvd.laba.tamagotchi.interfaces.IPlayWithPet;
+import com.solvd.laba.tamagotchi.interfaces.ITeachTrick;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -113,6 +117,12 @@ public class Main {
         feedMyPet.feed(myCat, Food.FISH);
 
         System.out.println("---------------------------------------------------------------------------");
+
+        for (AnimalArt animal : AnimalArt.values()) {
+            System.out.println(animal.name() + ":");
+            animal.printArt();
+            System.out.println();
+        }
 
 
     }

@@ -1,5 +1,8 @@
 package com.solvd.laba.tamagotchi;
 
+import com.solvd.laba.tamagotchi.interfaces.AdoptPet;
+import com.solvd.laba.tamagotchi.interfaces.ChoosePet;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
